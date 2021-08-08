@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Carrito de compras</title>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand">Carrito de Compras</a>
+            <form class="form-inline">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Carrito</button>
+            </form>
+          </nav>
+    </header>
+    <main>
+        <h4>Productos disponibles</h2>
+        <section class="secProducts" id="secProducts">
+          
+        </section>
+        <!-- Carrito -->
+        <aside class="col-sm-4">
+            <h2>Carrito</h2>
+            <!-- Elementos del carrito -->
+            <ul id="carrito" class="list-group"></ul>
+            <hr>
+            <!-- Precio total -->
+            <p class="text-right">Total: <span id="total"></span>&euro;</p>
+            <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
+        </aside>
+    </main>
+    <footer>
+        <p>Gracias por comprar en Carrito de Compras</p>
+    </footer>
+
+<!--Scripts js-->    
+    <script src="js/cargaDatos.js"></script>
+<!--    <script src="js/js.js"></script>-->
+</body>
+</html>

@@ -1,0 +1,35 @@
+.titleCenter {
+    text-align: center;
+}
+nav {
+    background-color: coral;
+    height: 50px;
+}
+ul {
+    list-style-type: none;
+    display: flex;
+	flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+li {
+    padding: 20px 20px 20px 20px;  
+}
+.secProducts {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+}
+.prod {
+    background-color: mediumaquamarine;
+    width: 250px;
+    text-align: center;
+    margin-top: 5px;
+}
+footer {
+    background-color: peru;
+    text-align: center;
+    height: 50px;
+}
