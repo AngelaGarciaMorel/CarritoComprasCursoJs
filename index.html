@@ -10,27 +10,41 @@
 <body>
 
     <header>
+        <img src="../img/compras.jpg" alt="" class="img-fluid imgTam">
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand">Carrito de Compras</a>
-            <form class="form-inline">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Carrito</button>
-            </form>
+            <button class="btn btn-outline-success my-2 my-sm-0" id="btnCarrito"  href="#carritoArea" type='button'>Carrito</button>
           </nav>
     </header>
     <main>
         <h4>Productos disponibles</h2>
-        <section class="secProducts" id="secProducts">
-          
+        <section class="secProducts" id="secProducts">         
         </section>
-        <!-- Carrito -->
-        <aside class="col-sm-4">
-            <h2>Carrito</h2>
+
+        <aside class=" card" >
+            <h2 id="carritoArea">Carrito</h2>
             <!-- Elementos del carrito -->
             <ul id="carrito" class="list-group"></ul>
+            <table>
+                <thead>
+                    <tr>
+                      <th scope="col">Producto</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Cantidad</th>
+                      <th scope="col">Precio Unitario</th>
+                      <th scope="col">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaCarrito">
+
+                </tbody>
+            </table>
             <hr>
             <!-- Precio total -->
-            <p class="text-right">Total: <span id="total"></span>&euro;</p>
-            <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
+            <p class="text-right">Total: &dollar;<span id="total"></span></p>
+            <button id="btnComprar" class="btn btn-success">Comprar</button>
+            <button id="btnVaciar" class="btn btn-danger">Vaciar</button>
+
         </aside>
     </main>
     <footer>
