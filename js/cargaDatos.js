@@ -98,62 +98,42 @@ const productosEnStock = [
 //Carga los productos en las cards
 function cargarProductos(){
     //obtiene la seccion de productos
-    let seccionProd = document.getElementById('secProducts');
     //recorre el json
     for (prod of productosEnStock) {
-        let card = document.createElement('div');
-        // Estructura
-        const miCard = document.createElement('div');
-        miCard.classList.add('card', 'text-white', 'bg-secondary','mb-3');
-        // Imagen
-        const miImagen = document.createElement('img');
-        miImagen.classList.add('card-img-top');
-        miImagen.setAttribute('src', prod.imagen);
-        // Body
-        const miCardBody = document.createElement('div');
-        miCardBody.classList.add('card-body');
-        // Titulo
-        const miCardTitle = document.createElement('h5');
-        miCardTitle.classList.add('card-title');
-        miCardTitle.textContent = prod.nombre;   
-        // Precio
-        const miCardPrecio = document.createElement('p');
-        miCardPrecio.classList.add('card-text');
-        miCardPrecio.textContent = '$' + prod.precio;          
-        // Boton Agregar 
-        let miBoton = document.createElement('button');
-        miBoton.classList.add('btn', 'btn-warning');
-        miBoton.textContent = 'Agregar al Carrito';
-        miBoton.setAttribute('marcador', prod.id);
-        miBoton.addEventListener('click', agregarProductoAlCarrito);
-        // Agrega elementos a cardBody
-        miCardBody.appendChild(miCardTitle);
-        miCardBody.appendChild(miCardPrecio);
-        miCardBody.appendChild(miBoton);
-        miCard.appendChild(miImagen);
-        miCard.appendChild(miCardBody);
-        seccionProd.appendChild(miCard);
+      //obtiene la seccion de productos y agrega las cards
+      $("#secProducts").append(`
+                                <div class="card text-white bg-secondary mb-3">
+                                  <img src="${prod.imagen}" class= "card-img-top" alt="">
+                                  <div class="card-body">
+                                    <h5 class="card-title">${prod.nombre}</h5>
+                                    <p class="card-text">$ ${prod.precio}</p>
+                                    <button class="btn btn-warning" id="btn${prod.id}"marcador="${prod.id}">Agregar al Carrito</button>
+                                  </div>
+                                </div>
+                              `);
+
+            //Asociamos el evento a botón creado.
+        $(`#btn${prod.id}`).on('click', function (e) {
+          let idProd = e.target.getAttribute('marcador');
+          if(localStorage.getItem(idProd) != undefined && localStorage.getItem(idProd) != null){
+            localStorage.setItem(idProd, parseInt(localStorage.getItem(idProd)) +1);
+          }
+          else{
+            localStorage.setItem(idProd, 1);
+        
+          }
+        
+          mostrarProdEnCarrito();
+        });
+
     }
 
 }
-//Agrega un producto al localStorage
-function agregarProductoAlCarrito(e){ 
-
-  let idProd = e.target.getAttribute('marcador');
-  if(localStorage.getItem(idProd) != undefined && localStorage.getItem(idProd) != null){
-    localStorage.setItem(idProd, parseInt(localStorage.getItem(idProd)) +1);
-  }
-  else{
-    localStorage.setItem(idProd, 1);
-
-  }
-
-  mostrarProdEnCarrito();
-}
 
 function mostrarProdEnCarrito() {
-  let cuerpoCarrito = document.getElementById('tablaCarrito'); 
-  cuerpoCarrito.innerHTML =  ``;
+
+  $("#tablaCarrito").html("");
+
   let total = 0;
   //recorre localstorage en busca de productos agregados
   for(var i = 0; i < localStorage.length; i++){
@@ -169,51 +149,43 @@ function mostrarProdEnCarrito() {
           let cantPedido = localStorage.getItem(clave);
           //Calcula subtotal
           subtotal = cantPedido * producto.precio;
-          let regProd = document.createElement('tr');
-          regProd.innerHTML = `<td><img class="card-img-top img-Carrito" src="${producto.imagen}" alt="Card image cap"></img></td>
-                              <td>${producto.nombre}</td>
-                              <td>${cantPedido}</td>
-                              <td>$${producto.precio}</td>
-                              <td>$${subtotal}</td>`
-
-          cuerpoCarrito.appendChild(regProd);    
+          $("#tablaCarrito").append(`
+                                    <tr>
+                                      <td><img class="card-img-top img-Carrito" src="${producto.imagen}" alt="Card image cap"></img></td>
+                                      <td>${producto.nombre}</td>
+                                      <td>${cantPedido}</td>
+                                      <td>$${producto.precio}</td>
+                                      <td>$${subtotal}</td>
+                                    </tr>
+                                  `);  
               
         }
     }
     total += subtotal;
     subtotal = 0;
   }
-  let textTotal = document.getElementById('total'); 
-  textTotal.textContent = total;
+  $("#total").html(total);
 }
 //vacia carrito
-let btnVacia = document.getElementById('btnVaciar'); 
-btnVacia.addEventListener('click', vaciarCarrito);
-function vaciarCarrito(){
-  localStorage.clear();   
-  let cuerpoCarrito = document.getElementById('tablaCarrito'); 
-  cuerpoCarrito.innerHTML =  ``;
-  let textTotal = document.getElementById('total'); 
-  textTotal.textContent = 0;
-}
+$("#btnVaciar").on('click', function () {
+        localStorage.clear();   
+        $("#tablaCarrito").html(""); 
+        $("#total").html("");
+});
+
+
 //finaliza compra
-let btnCompra = document.getElementById('btnComprar'); 
-btnCompra.addEventListener('click', finalizaCompra);
-function finalizaCompra(){
-  let textTotal = document.getElementById('total').textContent; 
-  console.log(textTotal);
-  if (parseInt(textTotal) ==0){
+$("#btnComprar").on('click', function () {
+  if (parseInt($("#total").text()) ==0){
     alert('No hay productos en el carrito');
   }
   else{
-    localStorage.clear();   
-    let cuerpoCarrito = document.getElementById('tablaCarrito'); 
-    cuerpoCarrito.innerHTML =  ``;
-    
-    textTotal.textContent = 0;
+    localStorage.clear(); 
+    $("#tablaCarrito").html(""); 
+    $("#total").html("");
     alert('Compra realizada con Éxito');
   }
-}
+});
 
 //Carga los productos
 cargarProductos();
