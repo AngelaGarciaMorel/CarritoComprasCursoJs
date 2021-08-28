@@ -48,17 +48,58 @@ footer {
 .img-carrito {
     width: 40px;
     height: 40px;
-
     background-color: crimson;
     border-radius: 25%;
+    cursor: pointer;
+    margin-right: 10px;
+    border: brown 2px solid;
+
 }
-.btn-carrito{
-    padding: 0px;
-    margin: 0px;
-    border-radius: 25%;
+.img-carrito:hover{
+    transform: scale(1.2);
+    
 }
 .bkg-btn-carr{
     background-color: orange;
     height: 6em;
-    margin-bottom: 2em;
+}
+
+#sidebar{
+    width: 40%;
+    height: 222vh;
+    background-color: white;
+    position: absolute;
+    z-index:1;
+    right: -1px;
+    border: tomato 2px solid;
+
+
+}
+.contenido {
+    width: 100%;
+    height: 225vh;
+    position: absolute;
+    background: white;
+    transition: all 0.3s;
+    z-index:2;
+}
+.abrir{
+    z-index:0;
+}
+.cont-tot{
+    background-color: orange;
+    padding: 5px;
+    font-size: x-large;
+    font-style: oblique;
+    font-weight: bold;
+}
+#total{  
+    margin-right : 5px;
+
+}
+#result-compra{
+    margin-top: 10px;
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
 }

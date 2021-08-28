@@ -1,7 +1,12 @@
+//abrir sidebar Carrito
+$('.carrito-bar').on('click', function(){
+  $('.contenido').toggleClass('abrir');
+})
 function mostrarProdEnCarrito() {
 
     $("#tablaCarrito").html("");
     let total = 0;
+    $("#total").html(total);
     //recorre localstorage en busca de productos agregados
     for(var i = 0; i < localStorage.length; i++){
       let clave = localStorage.key(i);
@@ -45,22 +50,44 @@ function mostrarProdEnCarrito() {
 
   //vacia carrito
   $("#btnVaciar").on('click', function () {
+    if (parseInt($("#total").text()) ==0){
+        $("#result-compra").html("No hay productos en el carrito");
+        $("#result-compra").css({"color": "red"});
+        $("#result-compra").fadeIn("slow", function(){
+          $("#result-compra").fadeOut(1000);
+      });
+    }
+    else{
           localStorage.clear();   
           $("#tablaCarrito").html(""); 
           $("#total").html("0");
-       
+          $("#result-compra").html("Se carrito ha sido vaciado");
+          $("#result-compra").css({"color": "green"});
+          $("#result-compra").fadeIn("slow", function(){
+            
+            $("#result-compra").fadeOut(1000);
+        });
+      }   
   });
  
   //finaliza compra
   $("#btnComprar").on('click', function () {
     if (parseInt($("#total").text()) ==0){
-      alert('No hay productos en el carrito');
+        $("#result-compra").html("No hay productos en el carrito");
+        $("#result-compra").css({"color": "red"});
+        $("#result-compra").fadeIn("slow", function(){
+          $("#result-compra").fadeOut(1000);
+        });
     }
     else{
       localStorage.clear(); 
       $("#tablaCarrito").html(""); 
       $("#total").html("0");
-      alert('Compra realizada con Éxito');
+      $("#result-compra").html("Compra realizada con Éxito");
+      $("#result-compra").css({"color": "green"});
+      $("#result-compra").fadeIn("slow", function(){
+        $("#result-compra").fadeOut(2000);
+      });
     }
   });
   

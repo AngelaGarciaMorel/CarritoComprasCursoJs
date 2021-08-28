@@ -22,7 +22,7 @@ function cargarProductos(){
                                         </div>
                                       `);              
                     //Asociamos el evento a botón creado.
-                    $(`#btn${prod.id}`).on('click', function (e) {s
+                    $(`#btn${prod.id}`).on('click', function (e) {
                       let idProd = e.target.getAttribute('marcador');
                       if(localStorage.getItem(idProd) != undefined && localStorage.getItem(idProd) != null){
                         localStorage.setItem(idProd, parseInt(localStorage.getItem(idProd)) +1);
