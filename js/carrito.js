@@ -69,7 +69,34 @@ function mostrarProdEnCarrito() {
         });
       }   
   });
- 
+
+function recorreProdCarrito(){
+  let infoCarrito = [];
+  for(var i = 0; i < localStorage.length; i++){
+    let clave = localStorage.key(i);
+    //declara el total
+    
+    let subtotal = 0;  
+    //recorrer el json y cargar tabla de carrito
+    const URLJSON = "../data/productos.json"
+    
+    $.getJSON(URLJSON, function (respuesta, estado) {
+        if(estado === "success"){
+            let productosEnStock = respuesta;
+            for(const producto of productosEnStock){                
+                if(producto.id == clave){                            
+                    let cantPedido = localStorage.getItem(clave);      
+                    infoCarrito.push(producto);         
+                }
+            }
+
+          }
+    });
+  }
+  
+  return infoCarrito;
+}
+
   //finaliza compra
   $("#btnComprar").on('click', function () {
     if (parseInt($("#total").text()) ==0){
@@ -80,14 +107,23 @@ function mostrarProdEnCarrito() {
         });
     }
     else{
-      localStorage.clear(); 
-      $("#tablaCarrito").html(""); 
-      $("#total").html("0");
-      $("#result-compra").html("Compra realizada con Éxito");
-      $("#result-compra").css({"color": "green"});
-      $("#result-compra").fadeIn("slow", function(){
-        $("#result-compra").fadeOut(2000);
+      const URLGET   = "https://jsonplaceholder.typicode.com/posts";
+      const infoPost = recorreProdCarrito();
+      console.log(infoPost);
+      $.post(URLGET, infoPost ,(respuesta, estado) => {
+        if(estado === "success"){
+            localStorage.clear(); 
+            $("#tablaCarrito").html(""); 
+            $("#total").html("0");
+            $("#result-compra").html("Compra realizada con Éxito");
+            $("#result-compra").css({"color": "green"});
+            $("#result-compra").fadeIn("slow", function(){
+              $("#result-compra").fadeOut(2000);
+            });
+        }  
       });
+
+
     }
   });
   
